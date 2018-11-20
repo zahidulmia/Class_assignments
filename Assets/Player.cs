@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI; 
 public class Player : MonoBehaviour {
 
 	public float jumpForce = 15f;
@@ -14,16 +14,20 @@ public class Player : MonoBehaviour {
 	public Color colorYellow;
 	public Color colorMagenta;
 	public Color colorPink;
-
+	public int score;
+	public Text sscore;
 	void Start ()
 	{
 		SetRandomColor();
+		score = 0;
 	}
 	void Update () 
 	    {
 		if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
 		{
 			rb.velocity = Vector2.up * jumpForce;
+
+			Debug.Log("Score: "+score);
 		}
 	}
 
@@ -32,6 +36,8 @@ public class Player : MonoBehaviour {
 		if (col.tag == "ColorChanger")
 		{
 			SetRandomColor();
+			score = score + 1;
+			sscore.text = score.ToString ();
 			Destroy(col.gameObject);
 			return;
 		}
